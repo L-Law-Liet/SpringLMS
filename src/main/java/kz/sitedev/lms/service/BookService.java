@@ -9,8 +9,6 @@ import java.util.List;
 @Service
 public interface BookService {
 
-    List<Book> findByTitle(String name);
-    List<Book> getByDescription(String name);
-    List<Book> getByAuthor(String name);
-    void create(Book book);
+    List<Book> findBook(String name);
+    Book create(Book book);
 }

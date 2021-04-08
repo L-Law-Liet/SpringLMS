@@ -11,6 +11,9 @@ import java.util.Optional;
 public interface ReqRepository extends JpaRepository<Req, Long> {
 
     List<Req> findAll();
-
+    List<Req> findByStatusId(Long id);
+    List<Req> findByUserId(Long id);
+    List<Req> findByBookId(Long id);
     Req findReqById(Long id);
+
 }

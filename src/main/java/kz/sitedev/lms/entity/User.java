@@ -11,11 +11,7 @@ public class User {
     private Long id;
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "card_id", referencedColumnName = "id")
-    private Card card;
-
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Req> reqs;
 
     public Long getId() {
@@ -34,14 +30,6 @@ public class User {
         this.name = name;
     }
 
-    public Card getCard() {
-        return card;
-    }
-
-    public void setCard(Card card) {
-        this.card = card;
-    }
-
     public List<Req> getReqs() {
         return reqs;
     }
@@ -55,7 +43,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", card=" + card +
+                ", reqs=" + reqs +
                 '}';
     }
 }

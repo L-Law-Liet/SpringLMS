@@ -14,7 +14,7 @@ public class Book {
     private String author;
 
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
     private List<Req> reqs;
 
     public Long getId() {
@@ -55,5 +55,16 @@ public class Book {
 
     public void setReqs(List<Req> reqs) {
         this.reqs = reqs;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", author='" + author + '\'' +
+                ", reqs=" + reqs +
+                '}';
     }
 }

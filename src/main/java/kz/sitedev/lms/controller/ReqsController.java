@@ -4,11 +4,13 @@ import kz.sitedev.lms.entity.Req;
 import kz.sitedev.lms.service.ReqService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
+@RequestMapping("/reqs")
 public class ReqsController {
     @Autowired
     ReqService reqService;
@@ -16,11 +18,14 @@ public class ReqsController {
     public List<Req> getAll(){
         return reqService.getAll();
     };
+
+    @PostMapping("")
     public void create(Req req){
         reqService.create(req);
     };
 
-    public Req find(Long id){
+    @GetMapping("/{id}")
+    public Req find(@PathVariable("id") Long id){
         return reqService.find(id);
     };
 

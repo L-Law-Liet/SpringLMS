@@ -1,18 +1,19 @@
 package kz.sitedev.lms.entity;
 
 
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 public class Status {
     @Id
     private Long id;
-
     private String name;
 
-    @ManyToMany(mappedBy = "statusReq")
-    private List<Req> reqStatus;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Req> reqs;
 
     public Long getId() {
         return id;
@@ -30,11 +31,11 @@ public class Status {
         this.name = name;
     }
 
-    public List<Req> getReqStatus() {
-        return reqStatus;
+    public List<Req> getReqs() {
+        return reqs;
     }
 
-    public void setReqStatus(List<Req> reqStatus) {
-        this.reqStatus = reqStatus;
+    public void setReqs(List<Req> reqs) {
+        this.reqs = reqs;
     }
 }

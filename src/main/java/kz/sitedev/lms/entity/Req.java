@@ -7,8 +7,15 @@ import java.util.List;
 public class Req {
     @Id
     private Long id;
-    private Long userId;
+
+    @Column(name = "book_id")
     private Long bookId;
+
+    @Column(name = "user_id")
+    private Long userId;
+
+    @Column(name = "status_id")
+    private Long statusId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -18,12 +25,9 @@ public class Req {
     @JoinColumn(name = "book_id")
     private Book book;
 
-    @ManyToMany
-    @JoinTable(
-            name = "status_reqs",
-            joinColumns = @JoinColumn(name = "req_id"),
-            inverseJoinColumns = @JoinColumn(name = "status_id"))
-    private List<Status> statusReq;
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private Status status;
 
     public Long getId() {
         return id;
@@ -49,12 +53,12 @@ public class Req {
         this.book = book;
     }
 
-    public List<Status> getStatusReq() {
-        return statusReq;
+    public Long getBookId() {
+        return bookId;
     }
 
-    public void setStatusReq(List<Status> statusReq) {
-        this.statusReq = statusReq;
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
 
     public Long getUserId() {
@@ -65,11 +69,19 @@ public class Req {
         this.userId = userId;
     }
 
-    public Long getBookId() {
-        return bookId;
+    public Long getStatusId() {
+        return statusId;
     }
 
-    public void setBookId(Long bookId) {
-        this.bookId = bookId;
+    public void setStatusId(Long statusId) {
+        this.statusId = statusId;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
