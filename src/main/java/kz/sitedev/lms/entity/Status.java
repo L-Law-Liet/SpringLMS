@@ -1,12 +1,11 @@
 package kz.sitedev.lms.entity;
 
 
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "statuses")
 public class Status {
     @Id
     private Long id;

@@ -4,9 +4,12 @@ import kz.sitedev.lms.entity.Book;
 import kz.sitedev.lms.repository.BookRepository;
 import kz.sitedev.lms.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class BookServiceImpl implements BookService {
     @Autowired
     BookRepository bookRepository;

@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+@Entity
+@Table(name = "reqs")
 public class Req {
     @Id
     private Long id;
@@ -18,15 +20,15 @@ public class Req {
     private Long statusId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "book_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id", insertable = false, updatable = false)
     private Book book;
 
-    @ManyToOne
-    @JoinColumn(name = "status_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_id", insertable = false, updatable = false)
     private Status status;
 
     public Long getId() {

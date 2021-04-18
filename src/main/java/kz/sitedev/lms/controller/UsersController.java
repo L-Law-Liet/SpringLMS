@@ -1,13 +1,26 @@
 package kz.sitedev.lms.controller;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import kz.sitedev.lms.entity.Role;
 import kz.sitedev.lms.entity.User;
+import kz.sitedev.lms.repository.RoleRepository;
 import kz.sitedev.lms.repository.UserRepository;
 import kz.sitedev.lms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
+import java.net.http.HttpResponse;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -16,6 +29,8 @@ public class UsersController {
     UserService userService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @GetMapping("")
     public List<User> all(){
@@ -32,9 +47,31 @@ public class UsersController {
         return userRepository.findAllByNameContains(name);
     }
 
-    @PostMapping("")
-    public User create(@RequestBody User user) {
-        return userRepository.saveAndFlush(user);
+    @PostMapping("/register")
+    public ResponseEntity create(@RequestBody User user) {
+//        List<Role> roles = new ArrayList<>();
+//        roles.add(roleRepository.findFirstByName("USER"));
+//        user.setRoles(roles);
+        userService.create(user);
+        Long now = System.currentTimeMillis();
+        String token = Jwts.builder()
+                .setSubject(user.getUsername())
+                // Convert to list of strings.
+                // This is important because it affects the way we get them back in the Gateway.
+                .claim("authorities", user.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                .setIssuedAt(new Date(now))
+                .setExpiration(new Date(now + 60*60 * 1000))  // in milliseconds
+                .signWith(SignatureAlgorithm.HS512, "secret-key".getBytes())
+                .compact();
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Authorization",
+                "Bearer " + token);
+
+        return ResponseEntity.ok()
+                .headers(responseHeaders)
+                .body(user);
     }
 
     @PutMapping("/{id}")

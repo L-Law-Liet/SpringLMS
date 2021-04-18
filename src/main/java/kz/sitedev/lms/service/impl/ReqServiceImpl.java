@@ -4,10 +4,12 @@ import kz.sitedev.lms.entity.Req;
 import kz.sitedev.lms.repository.ReqRepository;
 import kz.sitedev.lms.service.ReqService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ReqServiceImpl implements ReqService {
     @Autowired
     ReqRepository reqRepository;
