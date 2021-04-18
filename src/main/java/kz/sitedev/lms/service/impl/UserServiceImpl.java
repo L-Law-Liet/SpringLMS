@@ -23,11 +23,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private BCryptPasswordEncoder passwordEncoder;
 
     public User create(User user) {
-        List<Role> roles = new ArrayList<>();
-        Role role = new Role();
-        role.setName("USER");
-        roles.add(role);
-        user.setRoles(roles);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.saveAndFlush(user);
     }

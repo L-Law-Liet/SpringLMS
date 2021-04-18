@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import java.net.http.HttpResponse;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,9 +50,7 @@ public class UsersController {
 
     @PostMapping("/register")
     public ResponseEntity create(@RequestBody User user) {
-//        List<Role> roles = new ArrayList<>();
-//        roles.add(roleRepository.findFirstByName("USER"));
-//        user.setRoles(roles);
+        user.setRoles(Arrays.asList(roleRepository.findFirstByName("USER")));
         userService.create(user);
         Long now = System.currentTimeMillis();
         String token = Jwts.builder()
