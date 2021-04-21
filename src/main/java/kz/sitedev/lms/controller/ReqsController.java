@@ -1,5 +1,6 @@
 package kz.sitedev.lms.controller;
 
+import io.swagger.annotations.Api;
 import kz.sitedev.lms.entity.Req;
 import kz.sitedev.lms.service.ReqService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/reqs")
+@Api
 public class ReqsController {
     @Autowired
     ReqService reqService;

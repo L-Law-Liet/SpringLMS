@@ -1,5 +1,6 @@
 package kz.sitedev.lms.controller;
 
+import io.swagger.annotations.Api;
 import kz.sitedev.lms.entity.Book;
 import kz.sitedev.lms.entity.Status;
 import kz.sitedev.lms.repository.BookRepository;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/status")
+@Api
 public class StatusController {
     @Autowired
     StatusRepository statusRepository;

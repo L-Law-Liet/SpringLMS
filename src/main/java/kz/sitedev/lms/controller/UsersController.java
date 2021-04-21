@@ -2,6 +2,7 @@ package kz.sitedev.lms.controller;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.swagger.annotations.Api;
 import kz.sitedev.lms.entity.Role;
 import kz.sitedev.lms.entity.User;
 import kz.sitedev.lms.repository.RoleRepository;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
+@Api
 public class UsersController {
     @Autowired
     UserService userService;
